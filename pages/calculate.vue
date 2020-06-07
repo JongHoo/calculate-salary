@@ -1,9 +1,11 @@
 <template lang="pug">
-  .calculate
-    .form__group(field)
-      input.form__field(type="input" placeholder="입력하세요." name="salary" id="salary" required
-        @keypress="onKeypressForSalary" v-model="salary")
-      label.form__label(for="salary") 연봉을 입력하세요. (만원)
+.calculate
+  .form__group(field)
+    input.form__field(type="input" placeholder="입력하세요." name="salary" id="salary" required
+      @keypress="onKeypressForSalary" v-model="salary")
+    label.form__label(for="salary") 연봉을 입력하세요. (만원)
+  .btn-area
+    button.btn-grad(@click="calculateSalary") 계산
 </template>
 
 <script>
@@ -17,12 +19,16 @@ export default {
   methods: {
     onKeypressForSalary (e) {
       if (e.keyCode < 48 || e.keyCode > 57) e.returnValue = false
+    },
+    calculateSalary () {
+      if (!this.salary) return
+      this.$router.push({ name: 'result', params: { salary: this.salary } })
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .calculate {
   margin: 0 auto;
   min-height: 100vh;
@@ -30,6 +36,25 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
+  flex-direction: column;
+
+  & > .btn-area {
+    margin-top: 30px;
+    & > .btn-grad {
+      background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA 51%);
+      border: none;
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 10px;
+      width: 120px;
+      height: 50px;
+    }
+  }
 }
 
 .form__group {
@@ -50,7 +75,6 @@ export default {
   padding: 7px 0;
   background: transparent;
   transition: border-color 0.2s;
-  text-align: right;
 }
 .form__field::placeholder {
   color: transparent;
@@ -74,7 +98,7 @@ export default {
   padding-bottom: 6px;
   font-weight: 700;
   border-width: 3px;
-  border-image: linear-gradient(to right, #11998e, #38ef7d);
+  border-image: linear-gradient(to right, #fc00aa, #00dbde);
   border-image-slice: 1;
 }
 .form__field:focus ~ .form__label {
@@ -83,7 +107,7 @@ export default {
   display: block;
   transition: 0.2s;
   font-size: 1rem;
-  color: #11998e;
+  color: #a83fd5;
   font-weight: 700;
 }
 
