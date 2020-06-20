@@ -5,7 +5,9 @@
       @keypress="onKeypressForSalary" v-model="salary")
     label.form__label(for="salary") 연봉을 입력하세요. (만원)
   .btn-area
-    button.btn-grad(@click="calculateSalary") 계산
+    button.button--green(@click="calculateSalary") 계산
+  .btn-area
+    span(@click="moveHome") Home
 </template>
 
 <script>
@@ -23,6 +25,9 @@ export default {
     calculateSalary () {
       if (!this.salary) return
       this.$router.push({ name: 'result', params: { salary: this.salary } })
+    },
+    moveHome () {
+      this.$router.push({ name: 'index' })
     }
   }
 }
@@ -40,19 +45,8 @@ export default {
 
   & > .btn-area {
     margin-top: 30px;
-    & > .btn-grad {
-      background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA 51%);
-      border: none;
-      color: #fff;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 10px;
-      width: 120px;
-      height: 50px;
+    & > span {
+      color: #7f7f7f;
     }
   }
 }

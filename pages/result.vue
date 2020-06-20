@@ -27,7 +27,7 @@
       .subject 근로자부담금 총합
       .content {{ makeKrwFormat(payableAmountForInsurance + payableAmountForInsurance * 0.1025) }}
   .btn-area
-    button.btn-grad(@click="moveBack") 다시 계산하기
+    button.button--green(@click="moveBack") 다시 계산하기
 </template>
 
 <script>
@@ -100,22 +100,6 @@ export default {
         margin-right: 20px;
         color: #00966f;
       }
-    }
-  }
-  & > .btn-area {
-    & > .btn-grad {
-      background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA 51%);
-      border: none;
-      color: #fff;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 10px;
-      width: 140px;
-      height: 50px;
     }
   }
 }

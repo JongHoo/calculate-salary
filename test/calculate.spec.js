@@ -16,7 +16,7 @@ describe('test for calculate', () => {
 
   describe('interaction', () => {
     it('연봉을 입력하지 않고 버튼을 누르면 페이지가 이동되지 않는다.', function () {
-      wrapper.find('.btn-grad').trigger('click')
+      wrapper.find('.button--green').trigger('click')
       expect(wrapper.vm.$router.push).not.toHaveBeenCalled()
     })
 
@@ -24,7 +24,7 @@ describe('test for calculate', () => {
       wrapper.setData({
         salary: 5000
       })
-      wrapper.find('.btn-grad').trigger('click')
+      wrapper.find('.button--green').trigger('click')
       expect(wrapper.vm.$router.push).toHaveBeenCalled()
     })
   })
