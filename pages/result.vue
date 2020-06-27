@@ -1,31 +1,24 @@
 <template lang="pug">
 .result
   .result-header
-    .header 국민연금
+    .header 공제내역
     hr.header-line
   .result-detail
     .line
-      .subject 기준소득월액
-      .content {{ makeKrwFormat(monthlyAmountForPension) }}
+      .subject 국민연금
+      .content {{ makeKrwFormat(apForPension) }}
     .line
-      .subject 근로자부담금
-      .content {{ makeKrwFormat(payableAmountForPension) }}
-  .result-header
-    .header 건강보험
-    hr.header-line
-  .result-detail
+      .subject 건강보험
+      .content {{ makeKrwFormat(apForInsurance) }}
     .line
-      .subject 기준소득월액
-      .content {{ makeKrwFormat(monthlyAmount) }}
+      .subject 장기요양
+      .content {{ makeKrwFormat(apForInsurance * 0.1025) }}
     .line
-      .subject 건강보험료 근로자부담금
-      .content {{ makeKrwFormat(payableAmountForInsurance) }}
+      .subject 고용보험
+      .content {{ makeKrwFormat(apForHiring) }}
     .line
-      .subject 장기요양료 근로자부담금
-      .content {{ makeKrwFormat(payableAmountForInsurance * 0.1025) }}
-    .line
-      .subject 근로자부담금 총합
-      .content {{ makeKrwFormat(payableAmountForInsurance + payableAmountForInsurance * 0.1025) }}
+      .subject 총합
+      .content {{ makeKrwFormat(apForPension + apForInsurance + apForInsurance * 0.1025 + apForHiring) }}
   .btn-area
     button.button--green(@click="moveBack") 다시 계산하기
 </template>
@@ -41,11 +34,14 @@ export default {
       const salaryPerMonth = Math.floor(this.$route.params.salary / 12)
       return (salaryPerMonth > 486 ? 486 : salaryPerMonth < 30 ? 30 : salaryPerMonth) * 10000
     },
-    payableAmountForPension () {
+    apForPension () {
       return Math.floor(this.monthlyAmountForPension) * 0.045
     },
-    payableAmountForInsurance () {
+    apForInsurance () {
       return Math.floor(this.monthlyAmount) * 0.03335
+    },
+    apForHiring () {
+      return Math.floor(this.monthlyAmount) * 0.008
     }
   },
   methods: {
@@ -64,6 +60,7 @@ export default {
 
 <style scoped lang="less">
 .result {
+  padding-top: 20px;
   margin: 0 auto;
   min-height: 100vh;
   display: flex;

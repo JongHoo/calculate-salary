@@ -7,7 +7,7 @@
   .btn-area
     button.button--green(@click="calculateSalary") 계산
   .btn-area
-    span(@click="moveHome") Home
+    span(@click="moveHome" style="cursor: pointer;") Home
 </template>
 
 <script>
@@ -35,6 +35,7 @@ export default {
 
 <style scoped lang="less">
 .calculate {
+  padding-top: 20px;
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
@@ -92,7 +93,6 @@ export default {
   padding-bottom: 6px;
   font-weight: 700;
   border-width: 3px;
-  border-image: linear-gradient(to right, #fc00aa, #00dbde);
   border-image-slice: 1;
 }
 .form__field:focus ~ .form__label {
@@ -101,7 +101,7 @@ export default {
   display: block;
   transition: 0.2s;
   font-size: 1rem;
-  color: #a83fd5;
+  color: #002776;
   font-weight: 700;
 }
 

@@ -1,8 +1,34 @@
 <template lang="pug">
   .main
+    .header
+      span.title 연봉계산기
+      span.about About
     nuxt
 </template>
 
+<style scoped lang="less">
+.header {
+  background-color: #002776;
+  color: white;
+  display: flex;
+  height: 50px;
+  align-items: center;
+  padding: 0 20px;
+  justify-content: space-between;
+
+  & > span {
+    cursor: pointer;
+    &.title {
+      font-size: 20px;
+      font-weight: 800;
+    }
+    &.about {
+      font-size: 15px;
+      color: #9b9b9b;
+    }
+  }
+}
+</style>
 <style>
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
