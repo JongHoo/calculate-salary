@@ -6,24 +6,36 @@
   .result-detail
     .line
       .subject 국민연금
-      .content {{ makeKrwFormat(apForPension) }}
+      .content {{ makeKrwFormat(taxForPension) }}
     .line
       .subject 건강보험
-      .content {{ makeKrwFormat(apForInsurance) }}
+      .content {{ makeKrwFormat(taxForInsurance) }}
     .line
       .subject 장기요양
-      .content {{ makeKrwFormat(apForInsurance * 0.1025) }}
+      .content {{ makeKrwFormat(taxForOldMan) }}
     .line
       .subject 고용보험
-      .content {{ makeKrwFormat(apForHiring) }}
+      .content {{ makeKrwFormat(taxForHiring) }}
+    .line
+      .subject 소득세
+      .content {{ makeKrwFormat(taxForIncome) }}
+    .line
+      .subject 지방소득세
+      .content {{ makeKrwFormat(taxForLocal) }}
     .line
       .subject 총합
-      .content {{ makeKrwFormat(apForPension + apForInsurance + apForInsurance * 0.1025 + apForHiring) }}
+      .content {{ makeKrwFormat(totalTax) }}
+    hr.header-line(style="margin-bottom: 20px;")
+    .line
+      .subject 실수령액
+      .content {{ makeKrwFormat(monthlyAmount - totalTax) }}
   .btn-area
     button.button--green(@click="moveBack") 다시 계산하기
 </template>
 
 <script>
+import taxTable from "../assets/taxTable"
+
 export default {
   name: "result",
   computed: {
@@ -34,14 +46,29 @@ export default {
       const salaryPerMonth = Math.floor(this.$route.params.salary / 12)
       return (salaryPerMonth > 486 ? 486 : salaryPerMonth < 30 ? 30 : salaryPerMonth) * 10000
     },
-    apForPension () {
+    taxForPension () {
       return Math.floor(this.monthlyAmountForPension) * 0.045
     },
-    apForInsurance () {
+    taxForOldMan () {
+      return this.taxForInsurance * 0.1025
+    },
+    taxForInsurance () {
       return Math.floor(this.monthlyAmount) * 0.03335
     },
-    apForHiring () {
+    taxForHiring () {
       return Math.floor(this.monthlyAmount) * 0.008
+    },
+    taxForIncome () {
+      const inputKey = this.monthlyAmount / 1000
+      const row = taxTable.find(item => item.from <= inputKey && item.to > inputKey)
+      return row.numOfFam1
+    },
+    taxForLocal () {
+      return this.taxForIncome / 10
+    },
+    totalTax () {
+      return this.taxForPension + this.taxForOldMan + this.taxForInsurance +
+             this.taxForHiring + this.taxForIncome + this.taxForLocal
     }
   },
   methods: {
@@ -60,7 +87,6 @@ export default {
 
 <style scoped lang="less">
 .result {
-  padding-top: 20px;
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
@@ -76,12 +102,6 @@ export default {
       font-weight: bold;
       font-size: 25px;
     }
-    & > .header-line {
-      width: 200px;
-      background-image: linear-gradient(to right, #00d355, #00db83, #00e2ab, #00e7cc, #12ebe6);
-      height: 2px;
-      border: 0px;
-    }
   }
 
   & > .result-detail {
@@ -95,9 +115,16 @@ export default {
 
       & > .subject {
         margin-right: 20px;
-        color: #00966f;
+        color: #002776;
       }
     }
+  }
+
+  & .header-line {
+    width: 200px;
+    background-image: linear-gradient(to right, #00d355, #00db83, #00e2ab, #00e7cc, #12ebe6);
+    height: 2px;
+    border: 0px;
   }
 }
 </style>
