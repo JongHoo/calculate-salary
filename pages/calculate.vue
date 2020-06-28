@@ -23,7 +23,7 @@ export default {
       if (e.keyCode < 48 || e.keyCode > 57) e.returnValue = false
     },
     calculateSalary () {
-      if (!this.salary) return
+      if (!this.salary || typeof this.salary !== 'number') return
       this.$router.push({ name: 'result', params: { salary: this.salary } })
     },
     moveHome () {
