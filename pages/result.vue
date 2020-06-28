@@ -60,8 +60,25 @@ export default {
     },
     taxForIncome () {
       const inputKey = this.monthlyAmount / 1000
-      const row = taxTable.find(item => item.from <= inputKey && item.to > inputKey)
-      return row.numOfFam1
+
+      if (inputKey < 10000) {
+        return taxTable.find(item => item.from <= inputKey && item.to > inputKey).numOfFam1
+      }
+
+      const defaultTax = taxTable.find(item => item.from === 10000).numOfFam1
+      if (inputKey === 10000) {
+        return defaultTax
+      } else if (inputKey > 10000 && inputKey <= 14000) {
+        return defaultTax + (inputKey - 10000) * 0.98 * 0.35
+      } else if (inputKey > 14000 && inputKey <= 28000) {
+        return defaultTax + 1372000 + (inputKey - 14000) * 0.98 * 0.38
+      } else if (inputKey > 28000 && inputKey <= 30000) {
+        return defaultTax + 6585600 + (inputKey - 28000) * 0.98 * 0.4
+      } else if (inputKey > 30000 && inputKey <= 45000) {
+        return defaultTax + 7385600 + (inputKey - 30000) * 0.4
+      } else { // inputKey > 45000
+        return defaultTax + 13385600 + (inputKey - 45000) * 0.42
+      }
     },
     taxForLocal () {
       return this.taxForIncome / 10
