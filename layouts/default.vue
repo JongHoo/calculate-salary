@@ -2,7 +2,8 @@
   .main
     .header
       span.title 실수령계산기
-      span.about About
+      nuxt-link(to="/about")
+        span.about About
     nuxt.router
 </template>
 
@@ -16,7 +17,7 @@
   padding: 0 20px;
   justify-content: space-between;
 
-  & > span {
+  & span {
     cursor: pointer;
     &.title {
       font-size: 20px;
