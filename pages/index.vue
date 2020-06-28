@@ -2,8 +2,8 @@
   .index
     .main-wrapper
       img.main-image(src="@/assets/images/dollar.png")
-      h1.title 연봉계산기
-      h2.subtitle 연봉을 기반으로 잡다한 금액을 계산합니다.
+      h1.title 실수령계산기
+      h2.subtitle 연봉으로 월 실수령액을 알려드립니다.
       .links
         NuxtLink.button--green(to="/calculate") 시작하기
 </template>
@@ -17,7 +17,6 @@ export default {
 <style lang="less">
 .index {
   margin: 0 auto;
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;

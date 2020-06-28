@@ -88,7 +88,6 @@ export default {
 <style scoped lang="less">
 .result {
   margin: 0 auto;
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,7 +99,7 @@ export default {
     & > .header {
       margin-bottom: 10px;
       font-weight: bold;
-      font-size: 25px;
+      font-size: 20px;
     }
   }
 

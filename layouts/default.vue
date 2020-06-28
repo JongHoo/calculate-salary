@@ -1,9 +1,9 @@
 <template lang="pug">
   .main
     .header
-      span.title 연봉계산기
+      span.title 실수령계산기
       span.about About
-    nuxt
+    nuxt.router
 </template>
 
 <style scoped lang="less">
@@ -27,6 +27,9 @@
       color: #9b9b9b;
     }
   }
+}
+.router {
+  min-height: calc(100vh - 50px);
 }
 </style>
 <style>
