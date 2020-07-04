@@ -1,9 +1,8 @@
 <template lang="pug">
   .main
     .header
-      span.title 실수령계산기
-      nuxt-link(to="/about")
-        span.about About
+      span.title(@click="$router.push({ name: 'index' })") 실수령계산기
+      span.about(@click="$router.push({ name: 'about' })") About
     nuxt.router
 </template>
 

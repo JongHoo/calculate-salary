@@ -1,8 +1,10 @@
 <template lang="pug">
 .about
-  .image-wrapper(style="margin-bottom: 20px;")
+  .image.area
     img.profile-image(src="@/assets/images/jhmg.jpeg")
-  .sns-wrapper(@click="moveLinkedIn")
+  .name.area
+    span.name Jay Hwang
+  .sns.area(@click="moveLinkedIn")
     img.sns-image(src="@/assets/images/linkedin-logo.png")
 </template>
 
@@ -25,6 +27,14 @@ export default {
   align-items: center;
   text-align: center;
   flex-direction: column;
+
+  & > .area {
+    margin-bottom: 10px;
+    & > .name {
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
 
   .profile-image {
     border-radius: 50px;

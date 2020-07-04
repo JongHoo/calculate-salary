@@ -11,6 +11,7 @@
 </template>
 
 <script>
+const numberOnlyRegex = new RegExp(/^\d+$/)
 export default {
   name: "calculate",
   data () {
@@ -23,7 +24,7 @@ export default {
       if (e.keyCode < 48 || e.keyCode > 57) e.returnValue = false
     },
     calculateSalary () {
-      if (!this.salary || typeof this.salary !== 'number') return
+      if (!this.salary || !numberOnlyRegex.test(this.salary)) return
       this.$router.push({ name: 'result', params: { salary: this.salary } })
     },
     moveHome () {
