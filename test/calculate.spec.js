@@ -20,6 +20,14 @@ describe('test for calculate', () => {
       expect(wrapper.vm.$router.push).not.toHaveBeenCalled()
     })
 
+    it('연봉을 입력하고 부양가족을 선택하지 않고 버튼을 누르면 페이지가 이동되지 않는다.', () => {
+      wrapper.setData({
+        salary: 5000
+      })
+      wrapper.find('.button--green').trigger('click')
+      expect(wrapper.vm.$router.push).not.toHaveBeenCalled()
+    })
+
     it('연봉에 숫자가 아닌 값을 입력하고 버튼을 누르면 페이지가 이동되지 않는다.', () => {
       wrapper.setData({
         salary: 'TEST_SALARY'
@@ -28,9 +36,10 @@ describe('test for calculate', () => {
       expect(wrapper.vm.$router.push).not.toHaveBeenCalled()
     })
 
-    it('연봉을 입력하고 버튼을 누르면 페이지가 이동된다.', () => {
+    it('연봉을 입력하고, 부양가족 수를 선택하고 버튼을 누르면 페이지가 이동된다.', () => {
       wrapper.setData({
-        salary: 5000
+        salary: 5000,
+        selectedFamilyOption: 1
       })
       wrapper.find('.button--green').trigger('click')
       expect(wrapper.vm.$router.push).toHaveBeenCalled()

@@ -62,10 +62,10 @@ export default {
       const inputKey = this.monthlyAmount / 1000
 
       if (inputKey < 10000) {
-        return taxTable.find(item => item.from <= inputKey && item.to > inputKey).numOfFam1
+        return taxTable.find(item => item.from <= inputKey && item.to > inputKey)[this.$route.params.famNumber]
       }
 
-      const defaultTax = taxTable.find(item => item.from === 10000).numOfFam1
+      const defaultTax = taxTable.find(item => item.from === 10000)[this.$route.params.famNumber]
       if (inputKey === 10000) {
         return defaultTax
       } else if (inputKey > 10000 && inputKey <= 14000) {
@@ -97,7 +97,7 @@ export default {
     }
   },
   mounted () {
-    if (!this.$route.params.salary) this.moveBack()
+    if (!this.$route.params.salary || !this.$route.params.famNumber) this.moveBack()
   }
 }
 </script>

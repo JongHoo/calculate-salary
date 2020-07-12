@@ -4,6 +4,7 @@
     input.form__field(type="input" placeholder="입력하세요." name="salary" id="salary" required
       @keypress="onKeypressForSalary" v-model="salary")
     label.form__label(for="salary") 연봉을 입력하세요. (만원)
+    v-select.dropdown(placeholder="부양 가족 수 (본인포함)" :options="familyOptions" @input="onSelectFamilyOption")
   .btn-area
     button.button--green(@click="calculateSalary") 계산
   .btn-area
@@ -11,21 +12,44 @@
 </template>
 
 <script>
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css'
+
 const numberOnlyRegex = new RegExp(/^\d+$/)
 export default {
   name: "calculate",
+  components: {
+    vSelect
+  },
   data () {
     return {
-      salary: ''
+      salary: '',
+      selectedFamilyOption: '',
+      familyOptions: [
+        { label: '1명', value: 1 },
+        { label: '2명', value: 2 },
+        { label: '3명', value: 3 },
+        { label: '4명', value: 4 },
+        { label: '5명', value: 5 },
+        { label: '6명', value: 6 },
+        { label: '7명', value: 7 },
+        { label: '8명', value: 8 },
+        { label: '9명', value: 9 },
+        { label: '10명', value: 10 },
+        { label: '11명 이상', value: 11 },
+      ]
     }
   },
   methods: {
+    onSelectFamilyOption (option) {
+      this.selectedFamilyOption = option.value
+    },
     onKeypressForSalary (e) {
       if (e.keyCode < 48 || e.keyCode > 57) e.returnValue = false
     },
     calculateSalary () {
-      if (!this.salary || !numberOnlyRegex.test(this.salary)) return
-      this.$router.push({ name: 'result', params: { salary: this.salary } })
+      if (!this.salary || !numberOnlyRegex.test(this.salary) || !this.selectedFamilyOption) return
+      this.$router.push({ name: 'result', params: { salary: this.salary, famNumber: `numOfFam${this.selectedFamilyOption}` } })
     },
     moveHome () {
       this.$router.push({ name: 'index' })
@@ -108,5 +132,16 @@ export default {
 /* reset input */
 .form__field:required, .form__field:invalid {
   box-shadow: none;
+}
+
+.dropdown {
+  margin-top: 20px;
+}
+</style>
+<style lang="less">
+.calculate {
+  input::placeholder {
+    color: #9b9b9b;
+  }
 }
 </style>
