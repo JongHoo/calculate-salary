@@ -30,6 +30,9 @@ export default {
 
   & > .area {
     margin-bottom: 10px;
+    &.sns {
+      cursor: pointer;
+    }
     & > .name {
       font-size: 20px;
       font-weight: bold;
