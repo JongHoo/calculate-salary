@@ -6,35 +6,52 @@
   .result-detail
     .line
       .subject 국민연금
-      .content {{ makeKrwFormat(taxForPension) }}
+      .content
+        span ₩
+        span(ref="taxForPension")
     .line
       .subject 건강보험
-      .content {{ makeKrwFormat(taxForInsurance) }}
+      .content
+        span ₩
+        span(ref="taxForInsurance")
     .line
       .subject 장기요양
-      .content {{ makeKrwFormat(taxForOldMan) }}
+      .content
+        span ₩
+        span(ref="taxForOldMan")
     .line
       .subject 고용보험
-      .content {{ makeKrwFormat(taxForHiring) }}
+      .content
+        span ₩
+        span(ref="taxForHiring")
     .line
       .subject 소득세
-      .content {{ makeKrwFormat(taxForIncome) }}
+      .content
+        span ₩
+        span(ref="taxForIncome")
     .line
       .subject 지방소득세
-      .content {{ makeKrwFormat(taxForLocal) }}
+      .content
+        span ₩
+        span(ref="taxForLocal")
     .line
       .subject 총합
-      .content {{ makeKrwFormat(totalTax) }}
+      .content
+        span ₩
+        span(ref="totalTax")
     hr.header-line(style="margin-bottom: 20px;")
     .line
       .subject 실수령액
-      .content {{ makeKrwFormat(monthlyAmount - totalTax) }}
+      .content
+        span ₩
+        span(ref="resultAmount")
   .btn-area
     button.button--green(@click="moveBack") 다시 계산하기
 </template>
 
 <script>
 import taxTable from "../assets/taxTable"
+import { CountUp } from 'countup.js'
 
 export default {
   name: "result",
@@ -94,10 +111,32 @@ export default {
     },
     moveBack () {
       this.$router.push({ name: 'calculate' })
+    },
+    countUpNumbers () {
+      const taxForPensionCountup = new CountUp(this.$refs.taxForPension, this.taxForPension, { duration: 1 })
+      const taxForInsuranceCountup = new CountUp(this.$refs.taxForInsurance, this.taxForInsurance, { duration: 1 })
+      const taxForOldManCountup = new CountUp(this.$refs.taxForOldMan, this.taxForOldMan, { duration: 1 })
+      const taxForHiringCountup = new CountUp(this.$refs.taxForHiring, this.taxForHiring, { duration: 1 })
+      const taxForIncomeCountup = new CountUp(this.$refs.taxForIncome, this.taxForIncome, { duration: 1 })
+      const taxForLocalCountup = new CountUp(this.$refs.taxForLocal, this.taxForLocal, { duration: 1 })
+      const totalTaxCountup = new CountUp(this.$refs.totalTax, this.totalTax, { duration: 1 })
+      const resultAmountCountup = new CountUp(this.$refs.resultAmount, this.monthlyAmount - this.totalTax, { duration: 1 })
+      taxForPensionCountup.start()
+      taxForInsuranceCountup.start()
+      taxForOldManCountup.start()
+      taxForHiringCountup.start()
+      taxForIncomeCountup.start()
+      taxForLocalCountup.start()
+      totalTaxCountup.start()
+      resultAmountCountup.start()
     }
   },
   mounted () {
-    if (!this.$route.params.salary || !this.$route.params.famNumber) this.moveBack()
+    if (!this.$route.params.salary || !this.$route.params.famNumber) {
+      this.moveBack()
+      return
+    }
+    this.countUpNumbers()
   }
 }
 </script>
