@@ -6,7 +6,7 @@
     label.form__label(for="salary") 연봉을 입력하세요. (만원)
     v-select.dropdown(placeholder="부양 가족 수 (본인포함)" :options="familyOptions" @input="onSelectFamilyOption")
   .btn-area
-    button.button--green(@click="calculateSalary") 계산
+    button.button--green(@click="calculateSalary" :disabled="!salary || !selectedFamilyOption") 계산
   .btn-area
     span(@click="moveHome" style="cursor: pointer;") Home
 </template>
@@ -42,6 +42,10 @@ export default {
   },
   methods: {
     onSelectFamilyOption (option) {
+      if (!option) {
+        this.selectedFamilyOption = ''
+        return
+      }
       this.selectedFamilyOption = option.value
     },
     onKeypressForSalary (e) {

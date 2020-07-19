@@ -55,29 +55,24 @@ html {
 .button--green {
   display: inline-block;
   border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
+  border: none;
+  color: white;
+  background-color: #21ac5f;
   text-decoration: none;
   padding: 10px 30px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 .button--green:hover {
   color: #fff;
-  background-color: #3b8070;
+  background-color: #1b894c;
 }
 
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+.button--green:disabled {
+  border: none;
+  background-color: #9b9c9c;
+  cursor: unset;
 }
 </style>

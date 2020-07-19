@@ -1,7 +1,7 @@
 <template lang="pug">
   .index
     .main-wrapper
-      img.main-image(src="@/assets/images/dollar.png")
+      img.main-image(src="@/assets/images/calculator.png")
       h1.title 실수령계산기
       h2.subtitle 연봉으로 월 실수령액을 알려드립니다.
       .links
@@ -25,7 +25,7 @@ export default {
   & > .main-wrapper {
 
     & > .main-image {
-      width: 300px;
+      width: 200px;
     }
 
     & > .title {
