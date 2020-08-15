@@ -52,7 +52,9 @@ export default {
       if (e.keyCode < 48 || e.keyCode > 57) e.returnValue = false
     },
     calculateSalary () {
-      if (!this.salary || !numberOnlyRegex.test(this.salary) || !this.selectedFamilyOption) return
+      if (!this.salary || !numberOnlyRegex.test(this.salary) || !this.selectedFamilyOption) {
+        return
+      }
       this.$router.push({ name: 'result', params: { salary: this.salary, famNumber: `numOfFam${this.selectedFamilyOption}` } })
     },
     moveHome () {
